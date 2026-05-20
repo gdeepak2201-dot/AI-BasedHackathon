@@ -25,6 +25,7 @@ const CompensationDashboard = lazy(() => import('./pages/CompensationDashboard')
 const Profile = lazy(() => import('./pages/Profile'));
 const TimeTracking = lazy(() => import('./pages/TimeTracking'));
 const PeerReviews = lazy(() => import('./pages/PeerReviews'));
+const TeamMembers = lazy(() => import('./pages/TeamMembers'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,6 +68,7 @@ function AppRoutes() {
 
         {/* Manager routes */}
         <Route path="/manager" element={<ProtectedRoute roles={['manager', 'admin']}><ManagerDashboard /></ProtectedRoute>} />
+        <Route path="/team-members" element={<ProtectedRoute roles={['manager', 'admin']}><TeamMembers /></ProtectedRoute>} />
         <Route path="/team-analytics" element={<ProtectedRoute roles={['manager', 'admin']}><TeamAnalytics /></ProtectedRoute>} />
         <Route path="/burnout-monitor" element={<ProtectedRoute roles={['manager', 'admin']}><BurnoutMonitor /></ProtectedRoute>} />
         <Route path="/ai-insights" element={<ProtectedRoute roles={['manager', 'admin']}><AIInsights /></ProtectedRoute>} />

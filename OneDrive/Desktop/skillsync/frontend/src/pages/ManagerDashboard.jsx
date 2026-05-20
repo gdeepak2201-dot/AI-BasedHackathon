@@ -180,6 +180,7 @@ export default function ManagerDashboard() {
       {/* Quick actions */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
+          { label: 'Team Members', icon: Users, path: '/team-members', color: 'from-blue-500 to-cyan-600' },
           { label: 'Team Chemistry', icon: Users, path: '/team-analytics', color: 'from-primary-500 to-blue-600' },
           { label: 'Burnout Monitor', icon: Activity, path: '/burnout-monitor', color: 'from-orange-500 to-red-600' },
           { label: 'Compensation', icon: DollarSign, path: '/compensation', color: 'from-emerald-500 to-teal-600' },
