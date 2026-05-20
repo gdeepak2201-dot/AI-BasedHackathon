@@ -40,14 +40,43 @@ async function seed() {
 
   const managerId = managerResult.rows[0]?.id;
 
-  // Employees
+  // Employees - Extended list with 20+ employees
   const employeeHash = await bcrypt.hash('Employee@123', 12);
   const employees = [
-    { email: 'alice@skillsync.ai', first: 'Alice', last: 'Chen', dept: 'Engineering', skills: ['react', 'typescript', 'node.js', 'graphql'] },
-    { email: 'bob@skillsync.ai', first: 'Bob', last: 'Martinez', dept: 'Engineering', skills: ['python', 'machine learning', 'tensorflow', 'data analysis'] },
-    { email: 'carol@skillsync.ai', first: 'Carol', last: 'Williams', dept: 'Product', skills: ['product management', 'ux design', 'figma', 'user research'] },
-    { email: 'david@skillsync.ai', first: 'David', last: 'Kim', dept: 'Data Science', skills: ['python', 'sql', 'tableau', 'statistics'] },
-    { email: 'eve@skillsync.ai', first: 'Eve', last: 'Thompson', dept: 'Engineering', skills: ['java', 'spring boot', 'microservices', 'docker'] }
+    // Engineering Team
+    { email: 'alice@skillsync.ai', first: 'Alice', last: 'Chen', dept: 'Engineering', skills: ['react', 'typescript', 'node.js', 'graphql', 'aws', 'docker'] },
+    { email: 'bob@skillsync.ai', first: 'Bob', last: 'Martinez', dept: 'Engineering', skills: ['python', 'machine learning', 'tensorflow', 'data analysis', 'pytorch'] },
+    { email: 'eve@skillsync.ai', first: 'Eve', last: 'Thompson', dept: 'Engineering', skills: ['java', 'spring boot', 'microservices', 'docker', 'kubernetes'] },
+    { email: 'frank@skillsync.ai', first: 'Frank', last: 'Johnson', dept: 'Engineering', skills: ['golang', 'rust', 'system design', 'performance optimization'] },
+    { email: 'grace@skillsync.ai', first: 'Grace', last: 'Lee', dept: 'Engineering', skills: ['vue.js', 'angular', 'css', 'html', 'webpack'] },
+    { email: 'henry@skillsync.ai', first: 'Henry', last: 'Brown', dept: 'Engineering', skills: ['devops', 'kubernetes', 'terraform', 'ci/cd', 'aws'] },
+    
+    // Product Team
+    { email: 'carol@skillsync.ai', first: 'Carol', last: 'Williams', dept: 'Product', skills: ['product management', 'ux design', 'figma', 'user research', 'analytics'] },
+    { email: 'iris@skillsync.ai', first: 'Iris', last: 'Patel', dept: 'Product', skills: ['product strategy', 'roadmap planning', 'stakeholder management', 'market research'] },
+    { email: 'jack@skillsync.ai', first: 'Jack', last: 'Wilson', dept: 'Product', skills: ['ui design', 'prototyping', 'user testing', 'design systems'] },
+    
+    // Data Science Team
+    { email: 'david@skillsync.ai', first: 'David', last: 'Kim', dept: 'Data Science', skills: ['python', 'sql', 'tableau', 'statistics', 'r', 'spark'] },
+    { email: 'karen@skillsync.ai', first: 'Karen', last: 'Davis', dept: 'Data Science', skills: ['data engineering', 'etl', 'apache spark', 'hadoop', 'hive'] },
+    { email: 'leo@skillsync.ai', first: 'Leo', last: 'Garcia', dept: 'Data Science', skills: ['analytics', 'business intelligence', 'power bi', 'looker'] },
+    
+    // Operations Team
+    { email: 'mia@skillsync.ai', first: 'Mia', last: 'Anderson', dept: 'Operations', skills: ['project management', 'agile', 'scrum', 'jira', 'confluence'] },
+    { email: 'noah@skillsync.ai', first: 'Noah', last: 'Taylor', dept: 'Operations', skills: ['hr management', 'recruitment', 'employee relations', 'training'] },
+    { email: 'olivia@skillsync.ai', first: 'Olivia', last: 'Thomas', dept: 'Operations', skills: ['finance', 'budgeting', 'accounting', 'excel'] },
+    
+    // QA Team
+    { email: 'paul@skillsync.ai', first: 'Paul', last: 'Jackson', dept: 'Engineering', skills: ['qa automation', 'selenium', 'pytest', 'test planning', 'bug tracking'] },
+    { email: 'quinn@skillsync.ai', first: 'Quinn', last: 'White', dept: 'Engineering', skills: ['manual testing', 'test cases', 'regression testing', 'performance testing'] },
+    
+    // Security Team
+    { email: 'rachel@skillsync.ai', first: 'Rachel', last: 'Harris', dept: 'Engineering', skills: ['cybersecurity', 'penetration testing', 'security audit', 'compliance'] },
+    { email: 'sam@skillsync.ai', first: 'Sam', last: 'Martin', dept: 'Engineering', skills: ['network security', 'firewall', 'vpn', 'encryption'] },
+    
+    // Additional Staff
+    { email: 'tina@skillsync.ai', first: 'Tina', last: 'Rodriguez', dept: 'Product', skills: ['content strategy', 'copywriting', 'seo', 'marketing'] },
+    { email: 'uma@skillsync.ai', first: 'Uma', last: 'Singh', dept: 'Data Science', skills: ['nlp', 'computer vision', 'deep learning', 'reinforcement learning'] }
   ];
 
   const userMap = {};
@@ -63,17 +92,25 @@ async function seed() {
     }
   }
 
-  // Create Projects
+  // Create Projects - Extended list with 12+ projects
   const projectsResult = await query(`
     INSERT INTO projects (title, description, manager_id, department_id, status, priority, start_date, deadline)
     VALUES 
       ('AI Dashboard Redesign', 'Modernize the analytics dashboard with new UI/UX', $1, $2, 'active', 'high', CURRENT_DATE - INTERVAL '10 days', CURRENT_DATE + INTERVAL '20 days'),
       ('Mobile App Development', 'Build cross-platform mobile application', $1, $2, 'active', 'high', CURRENT_DATE - INTERVAL '5 days', CURRENT_DATE + INTERVAL '45 days'),
       ('Data Pipeline Optimization', 'Improve ETL performance and reliability', $1, $3, 'active', 'medium', CURRENT_DATE - INTERVAL '15 days', CURRENT_DATE + INTERVAL '30 days'),
-      ('API Gateway Migration', 'Migrate to new API gateway infrastructure', $1, $2, 'planning', 'medium', CURRENT_DATE + INTERVAL '5 days', CURRENT_DATE + INTERVAL '60 days')
+      ('API Gateway Migration', 'Migrate to new API gateway infrastructure', $1, $2, 'planning', 'medium', CURRENT_DATE + INTERVAL '5 days', CURRENT_DATE + INTERVAL '60 days'),
+      ('Real-time Analytics Engine', 'Build real-time data processing system', $1, $3, 'active', 'high', CURRENT_DATE - INTERVAL '20 days', CURRENT_DATE + INTERVAL '35 days'),
+      ('Security Audit & Compliance', 'Comprehensive security review and compliance check', $1, $2, 'in_progress', 'critical', CURRENT_DATE - INTERVAL '8 days', CURRENT_DATE + INTERVAL '15 days'),
+      ('Customer Portal Redesign', 'Complete redesign of customer-facing portal', $1, $4, 'active', 'high', CURRENT_DATE - INTERVAL '3 days', CURRENT_DATE + INTERVAL '50 days'),
+      ('Machine Learning Model Development', 'Develop predictive models for business intelligence', $1, $3, 'active', 'high', CURRENT_DATE - INTERVAL '25 days', CURRENT_DATE + INTERVAL '40 days'),
+      ('Microservices Architecture', 'Refactor monolith to microservices', $1, $2, 'planning', 'high', CURRENT_DATE + INTERVAL '10 days', CURRENT_DATE + INTERVAL '90 days'),
+      ('Performance Optimization', 'Optimize application performance and reduce latency', $1, $2, 'in_progress', 'medium', CURRENT_DATE - INTERVAL '12 days', CURRENT_DATE + INTERVAL '25 days'),
+      ('Cloud Migration', 'Migrate infrastructure to cloud platform', $1, $2, 'planning', 'critical', CURRENT_DATE + INTERVAL '15 days', CURRENT_DATE + INTERVAL '120 days'),
+      ('AI-Powered Chatbot', 'Develop intelligent customer support chatbot', $1, $4, 'active', 'medium', CURRENT_DATE - INTERVAL '7 days', CURRENT_DATE + INTERVAL '55 days')
     ON CONFLICT DO NOTHING
     RETURNING id, title
-  `, [managerId, deptMap['Engineering'], deptMap['Data Science']]);
+  `, [managerId, deptMap['Engineering'], deptMap['Data Science'], deptMap['Operations']]);
 
   const projectIds = projectsResult.rows.map(p => p.id);
 
@@ -90,24 +127,24 @@ async function seed() {
     }
   }
 
-  // Create Tasks
+  // Create Tasks - Extended list with 50+ tasks
   if (projectIds.length > 0) {
     const taskStatuses = ['pending', 'in_progress', 'review', 'completed'];
     const taskPriorities = ['low', 'medium', 'high', 'critical'];
     const taskTitles = [
-      'Design system components',
-      'Implement authentication',
-      'Setup database schema',
-      'Create API endpoints',
-      'Write unit tests',
-      'Performance optimization',
-      'Documentation',
-      'Code review',
-      'Bug fixes',
-      'Deployment preparation'
+      'Design system components', 'Implement authentication', 'Setup database schema', 'Create API endpoints',
+      'Write unit tests', 'Performance optimization', 'Documentation', 'Code review', 'Bug fixes', 'Deployment preparation',
+      'Frontend integration', 'Backend validation', 'Security hardening', 'Load testing', 'Database indexing',
+      'Cache implementation', 'Error handling', 'Logging setup', 'Monitoring setup', 'Alert configuration',
+      'User interface design', 'API documentation', 'Database migration', 'Backup strategy', 'Disaster recovery',
+      'Mobile responsiveness', 'Accessibility audit', 'Performance profiling', 'Memory optimization', 'Network optimization',
+      'CI/CD pipeline setup', 'Docker containerization', 'Kubernetes deployment', 'Service mesh integration', 'API versioning',
+      'Rate limiting', 'Authentication tokens', 'Authorization rules', 'Data encryption', 'SSL/TLS setup',
+      'Monitoring dashboard', 'Alert system', 'Log aggregation', 'Metrics collection', 'Health checks',
+      'User onboarding', 'Feature flags', 'A/B testing', 'Analytics integration', 'User feedback system'
     ];
 
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 50; i++) {
       const projectId = projectIds[i % projectIds.length];
       const status = taskStatuses[i % taskStatuses.length];
       const priority = taskPriorities[i % taskPriorities.length];
@@ -120,17 +157,17 @@ async function seed() {
       `, [
         projectId,
         taskTitles[i % taskTitles.length],
-        `Task description for ${taskTitles[i % taskTitles.length]}`,
+        `Detailed task description for ${taskTitles[i % taskTitles.length]}. This task requires careful planning and execution.`,
         status,
         priority,
-        Math.random() * 16 + 4,
+        Math.random() * 40 + 4,
         managerId
       ]);
     }
 
     // Get created tasks and assign them
     const tasksResult = await query(`
-      SELECT id FROM tasks LIMIT 15
+      SELECT id FROM tasks LIMIT 50
     `);
 
     for (const task of tasksResult.rows) {
@@ -143,13 +180,16 @@ async function seed() {
     }
   }
 
-  // Create Active Time Logs (for this week)
+  // Create Active Time Logs (for 2 weeks)
   const today = new Date();
   for (const email of Object.keys(userMap)) {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 14; i++) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
       const dateStr = date.toISOString().split('T')[0];
+      
+      // Skip weekends
+      if (date.getDay() === 0 || date.getDay() === 6) continue;
       
       const activeMinutes = Math.floor(Math.random() * 240) + 360; // 6-10 hours
       const productivity = Math.random() * 0.4 + 0.6; // 60-100%
@@ -166,33 +206,51 @@ async function seed() {
     }
   }
 
-  // Create Workload Logs (for this week)
+  // Create Workload Logs (for 4 weeks)
   const weekStart = new Date(today);
   weekStart.setDate(weekStart.getDate() - weekStart.getDay());
-  const weekStartStr = weekStart.toISOString().split('T')[0];
+  
+  for (let week = 0; week < 4; week++) {
+    const currentWeekStart = new Date(weekStart);
+    currentWeekStart.setDate(currentWeekStart.getDate() - (week * 7));
+    const weekStartStr = currentWeekStart.toISOString().split('T')[0];
 
-  for (const email of Object.keys(userMap)) {
-    const burnoutRisk = Math.random() * 0.6 + 0.2; // 20-80%
-    const totalTasks = Math.floor(Math.random() * 8) + 3;
-    const completedTasks = Math.floor(totalTasks * (Math.random() * 0.6 + 0.3));
-    const overdueTasks = Math.floor(Math.random() * 2);
+    for (const email of Object.keys(userMap)) {
+      const burnoutRisk = Math.random() * 0.6 + 0.2; // 20-80%
+      const totalTasks = Math.floor(Math.random() * 12) + 5;
+      const completedTasks = Math.floor(totalTasks * (Math.random() * 0.7 + 0.2));
+      const overdueTasks = Math.floor(Math.random() * 3);
 
-    await query(`
-      INSERT INTO workload_logs (user_id, week_start, total_tasks, completed_tasks, overdue_tasks, avg_daily_hours, burnout_risk_score)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
-      ON CONFLICT (user_id, week_start) DO UPDATE SET
-        total_tasks = EXCLUDED.total_tasks,
-        completed_tasks = EXCLUDED.completed_tasks,
-        overdue_tasks = EXCLUDED.overdue_tasks,
-        burnout_risk_score = EXCLUDED.burnout_risk_score
-    `, [userMap[email], weekStartStr, totalTasks, completedTasks, overdueTasks, Math.random() * 4 + 6, burnoutRisk]);
+      await query(`
+        INSERT INTO workload_logs (user_id, week_start, total_tasks, completed_tasks, overdue_tasks, avg_daily_hours, burnout_risk_score)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        ON CONFLICT (user_id, week_start) DO UPDATE SET
+          total_tasks = EXCLUDED.total_tasks,
+          completed_tasks = EXCLUDED.completed_tasks,
+          overdue_tasks = EXCLUDED.overdue_tasks,
+          burnout_risk_score = EXCLUDED.burnout_risk_score
+      `, [userMap[email], weekStartStr, totalTasks, completedTasks, overdueTasks, Math.random() * 4 + 6, burnoutRisk]);
+    }
   }
 
-  // Create Peer Reviews
+  // Create Peer Reviews - More comprehensive
   const emailArray = Object.keys(userMap);
+  const feedbackTemplates = [
+    'Excellent work on the project. Great communication and collaboration with the team. Very reliable and delivers quality work.',
+    'Strong technical skills and great problem-solving abilities. Could improve on documentation.',
+    'Outstanding leadership and mentoring. Inspires the team and drives results.',
+    'Very collaborative and always willing to help teammates. Great attitude.',
+    'Exceptional attention to detail. Produces high-quality work consistently.',
+    'Great communication skills and very responsive to feedback.',
+    'Strong analytical skills and great at breaking down complex problems.',
+    'Very creative and brings innovative ideas to the table.',
+    'Reliable team player who consistently delivers on commitments.',
+    'Great at mentoring junior team members and sharing knowledge.'
+  ];
+
   for (let i = 0; i < emailArray.length; i++) {
     for (let j = 0; j < emailArray.length; j++) {
-      if (i !== j && Math.random() > 0.5) {
+      if (i !== j && Math.random() > 0.3) {
         await query(`
           INSERT INTO peer_reviews (reviewer_id, reviewee_id, communication_score, leadership_score, collaboration_score, technical_score, reliability_score, feedback, period)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
@@ -205,40 +263,68 @@ async function seed() {
           Math.floor(Math.random() * 3) + 3,
           Math.floor(Math.random() * 3) + 3,
           Math.floor(Math.random() * 3) + 3,
-          'Great work on the recent project. Keep up the excellent collaboration!',
-          'Q1-2024'
+          feedbackTemplates[Math.floor(Math.random() * feedbackTemplates.length)],
+          'Q2-2026'
         ]);
       }
     }
   }
 
-  // Create Leaves
+  // Create Leaves - More variety
+  const leaveReasons = [
+    'Family vacation',
+    'Medical appointment',
+    'Personal time',
+    'Conference attendance',
+    'Training program',
+    'Sick leave',
+    'Emergency',
+    'Maternity leave',
+    'Paternity leave',
+    'Sabbatical'
+  ];
+
   for (const email of Object.keys(userMap)) {
-    if (Math.random() > 0.6) {
-      const startDate = new Date(today);
-      startDate.setDate(startDate.getDate() + Math.floor(Math.random() * 30) + 5);
-      const endDate = new Date(startDate);
-      endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 5) + 1);
+    for (let k = 0; k < 3; k++) {
+      if (Math.random() > 0.4) {
+        const startDate = new Date(today);
+        startDate.setDate(startDate.getDate() + Math.floor(Math.random() * 60) + 5);
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + Math.floor(Math.random() * 10) + 1);
 
-      const startStr = startDate.toISOString().split('T')[0];
-      const endStr = endDate.toISOString().split('T')[0];
+        const startStr = startDate.toISOString().split('T')[0];
+        const endStr = endDate.toISOString().split('T')[0];
 
-      await query(`
-        INSERT INTO leaves (user_id, leave_type, start_date, end_date, reason, status)
-        VALUES ($1, $2, $3, $4, $5, $6)
-        ON CONFLICT DO NOTHING
-      `, [
-        userMap[email],
-        ['annual', 'sick', 'personal'][Math.floor(Math.random() * 3)],
-        startStr,
-        endStr,
-        'Taking time off for personal reasons',
-        ['pending', 'approved'][Math.floor(Math.random() * 2)]
-      ]);
+        await query(`
+          INSERT INTO leaves (user_id, leave_type, start_date, end_date, reason, status)
+          VALUES ($1, $2, $3, $4, $5, $6)
+          ON CONFLICT DO NOTHING
+        `, [
+          userMap[email],
+          ['annual', 'sick', 'personal', 'unpaid'][Math.floor(Math.random() * 4)],
+          startStr,
+          endStr,
+          leaveReasons[Math.floor(Math.random() * leaveReasons.length)],
+          ['pending', 'approved', 'rejected'][Math.floor(Math.random() * 3)]
+        ]);
+      }
     }
   }
 
-  // Create Compensation Suggestions
+  // Create Compensation Suggestions - More detailed
+  const suggestionTypes = ['promotion', 'raise', 'bonus', 'stock_options'];
+  const levels = ['Junior Engineer', 'Senior Engineer', 'Lead Engineer', 'Principal Engineer', 'Manager', 'Director'];
+  const rationales = [
+    'Based on strong performance metrics and team feedback',
+    'Exceptional technical contributions and leadership',
+    'Consistent high performance and reliability',
+    'Market rate adjustment for retention',
+    'Promotion based on demonstrated leadership',
+    'Performance bonus for exceeding targets',
+    'Equity grant for long-term commitment',
+    'Salary adjustment for expanded responsibilities'
+  ];
+
   for (const email of Object.keys(userMap)) {
     const performanceScore = Math.random() * 0.4 + 0.6;
     const productivityScore = Math.random() * 0.4 + 0.6;
@@ -246,22 +332,26 @@ async function seed() {
     const innovationScore = Math.random() * 0.4 + 0.5;
     const overallScore = (performanceScore + productivityScore + collaborationScore + innovationScore) / 4;
 
+    const suggestionType = overallScore > 0.75 ? 'promotion' : (overallScore > 0.65 ? 'raise' : 'bonus');
+    const currentLevel = levels[Math.floor(Math.random() * levels.length)];
+    const suggestedLevel = levels[Math.min(levels.indexOf(currentLevel) + 1, levels.length - 1)];
+
     await query(`
       INSERT INTO compensation_suggestions (user_id, suggestion_type, current_level, suggested_level, performance_score, productivity_score, collaboration_score, innovation_score, overall_score, rationale, status)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
       ON CONFLICT DO NOTHING
     `, [
       userMap[email],
-      overallScore > 0.75 ? 'promotion' : 'raise',
-      'Senior Engineer',
-      overallScore > 0.75 ? 'Lead Engineer' : 'Senior Engineer',
+      suggestionType,
+      currentLevel,
+      suggestedLevel,
       performanceScore,
       productivityScore,
       collaborationScore,
       innovationScore,
       overallScore,
-      'Based on strong performance metrics and team feedback',
-      'pending'
+      rationales[Math.floor(Math.random() * rationales.length)],
+      ['pending', 'approved', 'rejected'][Math.floor(Math.random() * 3)]
     ]);
   }
 
@@ -277,22 +367,22 @@ async function seed() {
     `, [userMap[email]]);
   }
 
-  logger.info('✅ Database seeded successfully with sample data');
+  logger.info('✅ Database seeded successfully with comprehensive sample data');
   logger.info('Demo accounts:');
   logger.info('  Admin:    admin@skillsync.ai / Admin@123');
   logger.info('  Manager:  manager@skillsync.ai / Manager@123');
-  logger.info('  Employee: alice@skillsync.ai / Employee@123');
+  logger.info('  Employee: alice@skillsync.ai / Employee@123 (+ 19 more employees)');
   logger.info('');
   logger.info('Sample data created:');
-  logger.info(`  - ${Object.keys(userMap).length} employees`);
-  logger.info(`  - ${projectIds.length} projects`);
-  logger.info('  - 15 tasks with assignments');
-  logger.info('  - Active time logs for the week');
-  logger.info('  - Workload and burnout data');
-  logger.info('  - Peer reviews');
-  logger.info('  - Leave requests');
-  logger.info('  - Compensation suggestions');
-  logger.info('  - Notifications');
+  logger.info(`  - ${Object.keys(userMap).length} employees across 4 departments`);
+  logger.info(`  - ${projectIds.length} projects with various statuses`);
+  logger.info('  - 50+ tasks with assignments and dependencies');
+  logger.info('  - Active time logs for 2 weeks (weekdays only)');
+  logger.info('  - Workload metrics for 4 weeks');
+  logger.info('  - Comprehensive peer reviews');
+  logger.info('  - Multiple leave requests with various statuses');
+  logger.info('  - Detailed compensation suggestions');
+  logger.info('  - Notifications for all users');
   process.exit(0);
 }
 
